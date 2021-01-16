@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <title>Workshop</title>
+</head>
+
+<body>
+<h2>Home Page</h2>
+<hr>
+
+
+<h4>Welcome</h4>
+
+<hr>
+
+<hr>
+
+
+<div>
+    <tr th:each="order : ${orderDataList}">
+
+        <td th:text="${order.description}"/>
+        <td th:text="${order.creationDate}"/>
+        <td th:text="${order.getCarData().marque}"/>
+        <td th:text="${order.getCarData().model}"/>
+        <td th:text="${order.getCarData().engineType}"/>
+        <td th:text="${order.getCarData().year}"/>
+        <td th:text="${order.getCarData().vin}"/>
+        <td th:text="${order.getCarData().registrationNumber}"/>
+        <td th:text="${order.getEmployeeDetailData().firstName}"/>
+        <td th:text="${order.getEmployeeDetailData().lastName}"/>
+        <td th:text="${order.getEmployeeDetailData().email}"/>
+        <td th:text="${order.getEmployeeDetailData().phoneNumber}"/>
+
+        <br><br>
+        <form th:action="@{/workshop/processOrderCreate}"
+              th:object="${orderDataAnswer}" method="POST"
+              class="form-horizontal">
+        <!-- Implementation date -->
+        <div style="margin-bottom: 25px" class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input type="date" th:value="*{implementationDate}" th:field="*{implementationDate}" placeholder="implementation date (*)" class="form-control" />
+        </div>
+
+        <div th:if="${#fields.hasErrors('implementationDate')}"
+             style="margin-bottom: 25px" class="text-danger">
+            <ul>
+                <li th:each="err : ${#fields.errors('implementationDate')}" th:text="'implementationDate ' + ${err}" />
+            </ul>
+        </div>
+
+
+        <!-- price -->
+        <div style="margin-bottom: 25px" class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            <input type="number" th:field="*{price}" placeholder="price (*)" class="form-control" />
+        </div>
+        <div th:if="${#fields.hasErrors('price')}"
+             style="margin-bottom: 25px" class="text-danger">
+            <ul>
+                <li th:each="err : ${#fields.errors('price')}" th:text="'price ' + ${err}" />
+            </ul>
+        </div>
+
+            <div>
+                <input type="hidden" th:value="${order.orderAnswerId}" name="id"/>
+            </div>
+            zaproponować czas wykonania oraz cene
+            <div style="margin-top: 10px" class="form-group">
+                <div class="col-sm-6 controls">
+                    <button type="submit" class="btn btn-primary">submit order</button>
+                </div>
+            </div>
+        </form>
+    </tr>
+</div>
+
+<br><br><br>
+
+<hr>
+
+<!-- Add a logout button -->
+<form th:action="@{/logout}"
+      method="POST">
+
+    <input type="submit" value="Logout" />
+
+</form>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+

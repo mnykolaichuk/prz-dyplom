@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Employee Directory</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <h3>Employee Directory</h3>
+        <hr>
+
+        <p>Save Employee</p>
+        <form action="#" th:action="@{/templates/employee/save}"
+                         th:object="${employee}" method="POST">
+            <input type="hidden" th:field="*{id}"/>
+            <input type="text" th:field="*{name}" placeholder="First name">
+            <input type="text" th:field="*{surname}" placeholder="Last name">
+            <input type="text" th:field="*{phoneNumber}" placeholder="Phone number">
+            <input type="text" th:field="*{email}" placeholder="Email">
+
+            <button type="submit">Save</button>
+
+        </form>
+        <a th:href="@{/templates/employee/employees}" method="GET">Back to Employees List</a>
+    </div>
+
+</body>
+
+</html>
